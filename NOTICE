@@ -1,0 +1,6 @@
+android-ndk-classic gradle plugin
+Copyright 2014 Igor Demin
+
+This product includes modified code of https://android.googlesource.com/platform/tools/base repository:
+https://android.googlesource.com/platform/tools/base/+/7015f94af060a2a248224675d9e2a275c80cd476/build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/NdkCompile.groovy
+https://android.googlesource.com/platform/tools/base/+/7015f94af060a2a248224675d9e2a275c80cd476/build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy

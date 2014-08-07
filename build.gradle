@@ -1,0 +1,24 @@
+apply from: 'gradle/libs/files.gradle'
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+ext {
+    repoProperties = loadPropertiesIfExists('repo.properties')
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile gradleApi()
+    compile 'com.android.tools.build:gradle:0.12.+'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: repoProperties.url)
+        }
+    }
+}
