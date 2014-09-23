@@ -22,13 +22,15 @@ class AndroidNdkClassicPlugin implements Plugin<Project> {
                     def variantData = variant.variantData
                     def ndkCompile = variantData.ndkCompileTask
                     def variantConfig = variantData.variantConfiguration
-
+                    
                     for (def output : variantData.outputs) {
                         def packageApplication = output.packageApplicationTask
+                        def compile = variantData.compileTask
                         packageApplication.dependsOn =
                             packageApplication.taskDependencies.values - ndkCompile
+                        compile.dependsOn =
+                            compile.taskDependencies.values - ndkCompile
                     }
-                   
 
                     NdkClassicCompile ndkExtCompile = project.tasks.create(
                             "compile${variantData.variantConfiguration.fullName.capitalize()}NdkClassic",
