@@ -20,9 +20,15 @@ class AndroidNdkClassicPlugin implements Plugin<Project> {
 
                 project.android.applicationVariants.all { variant ->
                     def variantData = variant.variantData
-                    def packageApplication = variantData.packageApplicationTask
                     def ndkCompile = variantData.ndkCompileTask
                     def variantConfig = variantData.variantConfiguration
+
+                    for (def output : variantData.outputs) {
+                        def packageApplication = output.packageApplicationTask
+                        packageApplication.dependsOn =
+                            packageApplication.taskDependencies.values - ndkCompile
+                    }
+                   
 
                     NdkClassicCompile ndkExtCompile = project.tasks.create(
                             "compile${variantData.variantConfiguration.fullName.capitalize()}NdkClassic",
@@ -47,9 +53,6 @@ class AndroidNdkClassicPlugin implements Plugin<Project> {
                     ndkExtCompile.conventionMapping.soFolder = {
                         project.file("$project.buildDir/${FD_INTERMEDIATES}/ndk/${variantConfig.dirName}/lib")
                     }
-
-                    packageApplication.dependsOn =
-                            packageApplication.taskDependencies.values - ndkCompile
                     variantData.javaCompileTask.dependsOn ndkExtCompile
                 }
             }
