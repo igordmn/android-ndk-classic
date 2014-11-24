@@ -10,7 +10,7 @@ buildscript {
     }
 }
 
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'android-ndk-classic'
 
 android {
@@ -18,14 +18,10 @@ android {
     buildToolsVersion "21.0.2"
 
     defaultConfig {
-        applicationId "dmi.com.gradle.ndkclassic.sample.lib"
+        applicationId "dmi.com.gradle.ndkclassic.sample"
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
-}
-
-dependencies {
-    compile project(':lib')
 }
