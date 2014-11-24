@@ -47,7 +47,7 @@ class AndroidNdkClassicPlugin implements Plugin<Project> {
                         new File(jniDir, "Android.mk")
                     }
                     ndkExtCompile.conventionMapping.debuggable = {
-                        variantConfig.buildType.jniDebugBuild
+                        variantConfig.buildType.jniDebuggable
                     }
                     ndkExtCompile.conventionMapping.objFolder = {
                         project.file("$project.buildDir/${FD_INTERMEDIATES}/ndk/${variantConfig.dirName}/obj")
