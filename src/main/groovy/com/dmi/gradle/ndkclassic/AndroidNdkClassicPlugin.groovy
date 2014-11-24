@@ -2,6 +2,8 @@ package com.dmi.gradle.ndkclassic
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import com.android.build.gradle.LibraryExtension
+import com.android.build.gradle.tasks.NdkCompile
 
 import static com.android.builder.model.AndroidProject.FD_INTERMEDIATES
 
@@ -18,20 +20,15 @@ class AndroidNdkClassicPlugin implements Plugin<Project> {
             } else if (jni.srcDirs.size() == 1) {
                 def jniDir = jni.srcDirs.toList().first()
 
-                project.android.applicationVariants.all { variant ->
+                def variants = project.android instanceof LibraryExtension ?
+                    project.android.libraryVariants :
+                    project.android.applicationVariants;
+
+                variants.all { variant ->
                     def variantData = variant.variantData
                     def ndkCompile = variantData.ndkCompileTask
                     def variantConfig = variantData.variantConfiguration
                     
-                    for (def output : variantData.outputs) {
-                        def packageApplication = output.packageApplicationTask
-                        def compile = variantData.compileTask
-                        packageApplication.dependsOn =
-                            packageApplication.taskDependencies.values - ndkCompile
-                        compile.dependsOn =
-                            compile.taskDependencies.values - ndkCompile
-                    }
-
                     NdkClassicCompile ndkExtCompile = project.tasks.create(
                             "compile${variantData.variantConfiguration.fullName.capitalize()}NdkClassic",
                             NdkClassicCompile)
@@ -56,6 +53,10 @@ class AndroidNdkClassicPlugin implements Plugin<Project> {
                         project.file("$project.buildDir/${FD_INTERMEDIATES}/ndk/${variantConfig.dirName}/lib")
                     }
                     variantData.javaCompileTask.dependsOn ndkExtCompile
+                }
+
+                project.tasks.withType(NdkCompile) {
+                    compileTask -> compileTask.enabled = false
                 }
             }
         }
