@@ -1,8 +1,6 @@
 buildscript {
     repositories {
-        maven {
-            url 'https://github.com/igordmn/mvn-repo/raw/master/releases'
-        }
+        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.14.4'

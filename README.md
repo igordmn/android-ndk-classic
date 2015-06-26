@@ -9,7 +9,7 @@ Add the following to your build script to use the plugin:
     buildscript {
         repositories {
             maven {
-                url 'https://github.com/igordmn/mvn-repo/raw/master/releases'
+                jcenter()
             }
         }
         dependencies {

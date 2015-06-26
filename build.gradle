@@ -1,10 +1,11 @@
-apply from: 'gradle/libs/files.gradle'
-apply plugin: 'groovy'
-apply plugin: 'maven'
-
-ext {
-    repoProperties = loadPropertiesIfExists('repo.properties')
+plugins {
+    id 'groovy'
+    id 'maven-publish'
+    id 'com.jfrog.bintray' version '1.1'
 }
+
+apply from: 'gradle/libs/files.gradle'
+apply from: 'gradle/libs/bintray.gradle'
 
 repositories {
     jcenter()
@@ -13,12 +14,4 @@ repositories {
 dependencies {
     compile gradleApi()
     compile 'com.android.tools.build:gradle:0.14.4'
-}
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: repoProperties.url)
-        }
-    }
 }
