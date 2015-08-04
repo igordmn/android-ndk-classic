@@ -21,8 +21,8 @@ publishing {
 }
 
 bintray {
-    user = repoProperties.user
-    key = repoProperties.key
+    user = repoProperties?.user
+    key = repoProperties?.key
     publications = ['mavenJava']
     publish = true
     pkg {
