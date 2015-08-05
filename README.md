@@ -13,8 +13,8 @@ Add the following to your build script to use the plugin:
             }
         }
         dependencies {
-            classpath 'com.android.tools.build:gradle:0.14.4'
-            classpath 'com.dmi.gradle:android-ndk-classic:0.2.0'
+            classpath 'com.android.tools.build:gradle:1.3.0'
+            classpath 'com.dmi.gradle:android-ndk-classic:0.3.0'
         }
     }
 
