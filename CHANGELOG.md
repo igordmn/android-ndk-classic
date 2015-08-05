@@ -1,3 +1,7 @@
+## 0.3.0 (August 5, 2015)
+
+  - support android gradle plugin 1.3.0
+
 ## 0.2.0 (November 24, 2014)
 
   - support android gradle plugin 0.14.4
