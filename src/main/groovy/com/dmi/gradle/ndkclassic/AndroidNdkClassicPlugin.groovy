@@ -33,7 +33,7 @@ class AndroidNdkClassicPlugin implements Plugin<Project> {
                             "compile${variantData.variantConfiguration.fullName.capitalize()}NdkClassic",
                             NdkClassicCompile)
                     ndkExtCompile.dependsOn variantData.preBuildTask
-                    ndkExtCompile.plugin = ndkCompile.plugin
+                    ndkExtCompile.ndkDirectory = ndkCompile.ndkDirectory
                     ndkExtCompile.conventionMapping.sourceFolders = {
                         return variantConfig.jniSourceList
                     }
@@ -52,7 +52,7 @@ class AndroidNdkClassicPlugin implements Plugin<Project> {
                     ndkExtCompile.conventionMapping.soFolder = {
                         project.file("$project.buildDir/${FD_INTERMEDIATES}/ndk/${variantConfig.dirName}/lib")
                     }
-                    variantData.javaCompileTask.dependsOn ndkExtCompile
+                    variantData.javaCompilerTask.dependsOn ndkExtCompile
                 }
 
                 project.tasks.withType(NdkCompile) {

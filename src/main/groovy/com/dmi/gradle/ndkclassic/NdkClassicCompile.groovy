@@ -33,6 +33,10 @@ class NdkClassicCompile extends BaseTask {
     @Input
     boolean ndkCygwinMode
 
+    @Optional
+    @Input
+    File ndkDirectory
+
     @InputFiles
     FileTree getSource() {
         return getProject().files(new ArrayList<Object>(getSourceFolders())).getAsFileTree()
@@ -40,10 +44,10 @@ class NdkClassicCompile extends BaseTask {
 
     @TaskAction
     void taskAction(IncrementalTaskInputs inputs) {
-        File ndkFolder = getNdkFolder()
+        checkNdkDirectory()
 
         List<String> commands = Lists.newArrayList()
-        String exe = ndkFolder.absolutePath + File.separator + "ndk-build"
+        String exe = ndkDirectory.absolutePath + File.separator + "ndk-build"
         if (CURRENT_PLATFORM == PLATFORM_WINDOWS && !ndkCygwinMode) {
             exe += ".cmd"
         }
@@ -64,18 +68,16 @@ class NdkClassicCompile extends BaseTask {
                 println line
             }
         }
-        getBuilder().commandLineRunner.runCmdLine(commands, commandLineOutput, null)
+        new CommandLineRunner(getILogger()).runCmdLine(commands, commandLineOutput, null)
     }
 
-    private File getNdkFolder() {
-        File ndkFolder = getPlugin().ndkFolder
-        if (ndkFolder == null || !ndkFolder.isDirectory()) {
+    private void checkNdkDirectory() {
+        if (ndkDirectory == null || !ndkDirectory.isDirectory()) {
             throw new GradleException(
                     "NDK not configured.\n" +
                             "Download the NDK from http://developer.android.com/tools/sdk/ndk/." +
                             "Then add ndk.dir=path/to/ndk in local.properties.\n" +
                             "(On Windows, make sure you escape backslashes, e.g. C:\\\\ndk rather than C:\\ndk)");
         }
-        return ndkFolder
     }
 }
