@@ -1,3 +1,7 @@
+## 0.4.0 (December 9, 2015)
+
+  - added "additional arguments" option
+
 ## 0.3.0 (August 5, 2015)
 
   - support android gradle plugin 1.3.0
