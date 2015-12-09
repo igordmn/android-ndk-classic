@@ -1,3 +1,8 @@
+## 0.5.0 (December 9, 2015)
+
+  - supports multiple jniDirs
+    (but only one with Android.mk)
+
 ## 0.4.0 (December 9, 2015)
 
   - added "additional arguments" option

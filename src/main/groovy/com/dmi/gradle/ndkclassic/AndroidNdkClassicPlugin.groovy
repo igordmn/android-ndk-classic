@@ -17,11 +17,10 @@ class AndroidNdkClassicPlugin implements Plugin<Project> {
 
         project.afterEvaluate {
             def jni = project.android.sourceSets.main.jni
-            if (jni.srcDirs.size() > 1) {
-                throw new IllegalStateException("android-ndk-classic: only support one dir in jniDirs")
-            } else if (jni.srcDirs.size() == 1) {
-                def jniDir = jni.srcDirs.toList().first()
-
+            def jniDir = jni.srcDirs.toList().find {
+                new File(it, "Android.mk").exists()
+            }
+            if (jniDir) {
                 def variants = project.android instanceof LibraryExtension ?
                     project.android.libraryVariants :
                     project.android.applicationVariants;
