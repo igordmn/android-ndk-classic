@@ -34,24 +34,12 @@ class AndroidNdkClassicPlugin implements Plugin<Project> {
                             NdkClassicCompile)
                     ndkExtCompile.dependsOn variantData.preBuildTask
                     ndkExtCompile.ndkDirectory = ndkCompile.ndkDirectory
-                    ndkExtCompile.conventionMapping.sourceFolders = {
-                        return variantConfig.jniSourceList
-                    }
-                    ndkExtCompile.conventionMapping.applicationMk = {
-                        new File(jniDir, "Application.mk")
-                    }
-                    ndkExtCompile.conventionMapping.androidMk = {
-                        new File(jniDir, "Android.mk")
-                    }
-                    ndkExtCompile.conventionMapping.debuggable = {
-                        variantConfig.buildType.jniDebuggable
-                    }
-                    ndkExtCompile.conventionMapping.objFolder = {
-                        project.file("$project.buildDir/${FD_INTERMEDIATES}/ndk/${variantConfig.dirName}/obj")
-                    }
-                    ndkExtCompile.conventionMapping.soFolder = {
-                        project.file("$project.buildDir/${FD_INTERMEDIATES}/ndk/${variantConfig.dirName}/lib")
-                    }
+                    ndkExtCompile.sourceFolders = variantConfig.jniSourceList
+                    ndkExtCompile.applicationMk = new File(jniDir, "Application.mk")
+                    ndkExtCompile.androidMk = new File(jniDir, "Android.mk")
+                    ndkExtCompile.debuggable = variantConfig.buildType.jniDebuggable
+                    ndkExtCompile.objFolder = project.file("$project.buildDir/${FD_INTERMEDIATES}/ndk/${variantConfig.dirName}/obj")
+                    ndkExtCompile.soFolder = project.file("$project.buildDir/${FD_INTERMEDIATES}/ndk/${variantConfig.dirName}/lib")
                     variantData.javaCompilerTask.dependsOn ndkExtCompile
                 }
 

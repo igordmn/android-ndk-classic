@@ -39,7 +39,7 @@ class NdkClassicCompile extends BaseTask {
 
     @InputFiles
     FileTree getSource() {
-        return getProject().files(new ArrayList<Object>(getSourceFolders())).getAsFileTree()
+        return project.files(new ArrayList<Object>(getSourceFolders())).getAsFileTree()
     }
 
     @TaskAction
