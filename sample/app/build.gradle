@@ -27,3 +27,7 @@ android {
 dependencies {
     compile project(':lib')
 }
+
+ndkClassic {
+    additionalArguments "APP_ABI=armeabi-v7a,x86"
+}

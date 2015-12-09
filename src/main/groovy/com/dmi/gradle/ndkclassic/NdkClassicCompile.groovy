@@ -62,6 +62,10 @@ class NdkClassicCompile extends BaseTask {
         if (getDebuggable()) {
             commands.add("NDK_DEBUG=1")
         }
+        if (project.ndkClassic.additionalArguments) {
+            commands.add(project.ndkClassic.additionalArguments)
+        }
+
         CommandLineRunner.CommandLineOutput commandLineOutput = new CommandLineRunner.CommandLineOutput() {
             @Override
             void out(@Nullable String line) {

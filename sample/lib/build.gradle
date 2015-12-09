@@ -22,3 +22,7 @@ android {
         versionName "1.0"
     }
 }
+
+ndkClassic {
+    additionalArguments "APP_ABI=armeabi-v7a,x86"
+}

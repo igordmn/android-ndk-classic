@@ -13,6 +13,8 @@ class AndroidNdkClassicPlugin implements Plugin<Project> {
             throw new IllegalStateException("android-ndk-classic: plugin needs android plugin")
         }
 
+        project.extensions.create("ndkClassic", AndroidNdkClassicExtension)
+
         project.afterEvaluate {
             def jni = project.android.sourceSets.main.jni
             if (jni.srcDirs.size() > 1) {
@@ -49,4 +51,8 @@ class AndroidNdkClassicPlugin implements Plugin<Project> {
             }
         }
     }
+}
+
+class AndroidNdkClassicExtension {
+    String additionalArguments
 }
