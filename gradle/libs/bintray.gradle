@@ -30,3 +30,7 @@ bintray {
         name = 'android-ndk-classic'
     }
 }
+
+build.mustRunAfter clean
+bintrayUpload.dependsOn clean, build
+bintrayUpload.dependsOn clean, build, sourcesJar, javadocJar, 'generatePomFileForMavenJavaPublication'
