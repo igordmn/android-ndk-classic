@@ -1,9 +1,11 @@
 package com.dmi.gradle.ndkclassic
 
 import com.android.annotations.Nullable
-import com.android.build.gradle.internal.tasks.BaseTask
 import com.android.ide.common.internal.CommandLineRunner
+import com.android.build.gradle.internal.LoggerWrapper;
+import com.android.utils.ILogger;
 import com.google.common.collect.Lists
+import org.gradle.api.DefaultTask;
 import org.gradle.api.GradleException
 import org.gradle.api.file.FileTree
 import org.gradle.api.tasks.*
@@ -12,7 +14,9 @@ import org.gradle.api.tasks.incremental.IncrementalTaskInputs
 import static com.android.SdkConstants.CURRENT_PLATFORM
 import static com.android.SdkConstants.PLATFORM_WINDOWS
 
-class NdkClassicCompile extends BaseTask {
+class NdkClassicCompile extends DefaultTask {
+    private ILogger logger = new LoggerWrapper(getLogger())
+
     List<File> sourceFolders
 
     @Input
@@ -72,7 +76,7 @@ class NdkClassicCompile extends BaseTask {
                 println line
             }
         }
-        new CommandLineRunner(getILogger()).runCmdLine(commands, commandLineOutput, null)
+        new CommandLineRunner(logger).runCmdLine(commands, commandLineOutput, null)
     }
 
     private void checkNdkDirectory() {
