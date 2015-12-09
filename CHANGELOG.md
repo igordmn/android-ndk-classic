@@ -9,12 +9,12 @@
 
 ## 0.3.0 (August 5, 2015)
 
-  - support android gradle plugin 1.3.0
+  - supports android gradle plugin 1.3.0
 
 ## 0.2.0 (November 24, 2014)
 
-  - support android gradle plugin 0.14.4
-  - support library projects
+  - supports android gradle plugin 0.14.4
+  - supports library projects
   - added sample
 
 ## 0.1.2 (September 24, 2014)
@@ -23,5 +23,5 @@
 
 ## 0.1.1 (September 23, 2014)
 
-  - support android gradle plugin 0.13.1
+  - supports android gradle plugin 0.13.1
 
