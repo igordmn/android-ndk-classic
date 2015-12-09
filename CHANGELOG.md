@@ -1,3 +1,7 @@
+## 0.6.0 (December 9, 2015)
+
+  - support android gradle plugin 1.5.0
+
 ## 0.5.0 (December 9, 2015)
 
   - supports multiple jniDirs
