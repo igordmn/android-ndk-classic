@@ -1,3 +1,8 @@
+## 0.7.1 (January 14, 2016)
+
+  - disabled incremental build (ndk-build always calling)
+  - default ndk build always disabled if plugin applied
+
 ## 0.6.0 (December 9, 2015)
 
   - support android gradle plugin 1.5.0
