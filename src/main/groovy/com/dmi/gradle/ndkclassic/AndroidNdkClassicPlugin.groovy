@@ -35,7 +35,6 @@ class AndroidNdkClassicPlugin implements Plugin<Project> {
                             NdkClassicCompile)
                     ndkExtCompile.dependsOn variantData.preBuildTask
                     ndkExtCompile.ndkDirectory = ndkCompile.ndkDirectory
-                    ndkExtCompile.sourceFolders = variantConfig.jniSourceList
                     ndkExtCompile.applicationMk = new File(jniDir, "Application.mk")
                     ndkExtCompile.androidMk = new File(jniDir, "Android.mk")
                     ndkExtCompile.debuggable = variantConfig.buildType.jniDebuggable

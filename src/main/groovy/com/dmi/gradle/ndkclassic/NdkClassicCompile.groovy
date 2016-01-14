@@ -17,53 +17,36 @@ import static com.android.SdkConstants.PLATFORM_WINDOWS
 class NdkClassicCompile extends DefaultTask {
     private ILogger logger = new LoggerWrapper(getLogger())
 
-    List<File> sourceFolders
-
-    @Input
     File applicationMk
 
-    @Input
     File androidMk
 
-    @Input
     boolean debuggable
 
-    @OutputDirectory
     File soFolder
 
-    @OutputDirectory
     File objFolder
 
-    @Input
-    boolean ndkCygwinMode
-
-    @Optional
-    @Input
     File ndkDirectory
 
-    @InputFiles
-    FileTree getSource() {
-        return project.files(new ArrayList<Object>(getSourceFolders())).getAsFileTree()
-    }
-
     @TaskAction
-    void taskAction(IncrementalTaskInputs inputs) {
+    void taskAction() {
         checkNdkDirectory()
 
         List<String> commands = Lists.newArrayList()
         String exe = ndkDirectory.absolutePath + File.separator + "ndk-build"
-        if (CURRENT_PLATFORM == PLATFORM_WINDOWS && !ndkCygwinMode) {
+        if (CURRENT_PLATFORM == PLATFORM_WINDOWS) {
             exe += ".cmd"
         }
         commands.add(exe)
         commands.add("NDK_PROJECT_PATH=null")
         if (getApplicationMk().exists()) {
-            commands.add("NDK_APPLICATION_MK=" + getApplicationMk().absolutePath)
+            commands.add("NDK_APPLICATION_MK=" + applicationMk.absolutePath)
         }
-        commands.add("APP_BUILD_SCRIPT=" + getAndroidMk().absolutePath)
-        commands.add("NDK_OUT=" + getObjFolder().absolutePath)
-        commands.add("NDK_LIBS_OUT=" + getSoFolder().absolutePath)
-        if (getDebuggable()) {
+        commands.add("APP_BUILD_SCRIPT=" + androidMk.absolutePath)
+        commands.add("NDK_OUT=" + objFolder.absolutePath)
+        commands.add("NDK_LIBS_OUT=" + soFolder.absolutePath)
+        if (debuggable) {
             commands.add("NDK_DEBUG=1")
         }
         if (project.ndkClassic.additionalArguments) {
